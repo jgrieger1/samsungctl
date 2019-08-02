@@ -101,8 +101,7 @@ class UPNPTV(UPNPObject):
         if not self.connected:
             return
 
-        current_mute = self.RenderingControl.GetMute(0, channel)
-        return current_mute
+        return self.RenderingControl.GetMute(0, channel)[0]
 
     def set_channel_mute(self, channel, desired_mute):
         if not self.connected:
@@ -114,8 +113,7 @@ class UPNPTV(UPNPObject):
         if not self.connected:
             return
 
-        current_volume = self.RenderingControl.GetVolume(0, channel)
-        return current_volume
+        return self.RenderingControl.GetVolume(0, channel)[0]
 
     def set_channel_volume(self, channel, desired_volume):
         if not self.connected:
@@ -151,8 +149,7 @@ class UPNPTV(UPNPObject):
         if not self.connected:
             return
 
-        aspect_ratio = self.RenderingControl.X_GetAspectRatio(0)
-        return aspect_ratio
+        return self.RenderingControl.X_GetAspectRatio(0)[0]
 
     @aspect_ratio.setter
     def aspect_ratio(self, aspect_ratio='Default'):
@@ -579,20 +576,13 @@ class UPNPTV(UPNPObject):
         except AttributeError:
             status = self.get_channel_mute('Master')
 
-        if status == 'Disable':
-            return False
-        else:
-            return True
+        return status
 
     @mute.setter
     def mute(self, desired_mute):
         if not self.connected:
             return
 
-        if desired_mute:
-            desired_mute = 'Enable'
-        else:
-            desired_mute = 'Disable'
         try:
             self.MainTVAgent2.SetMute(desired_mute)
         except AttributeError:
