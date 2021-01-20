@@ -94,7 +94,7 @@ class RemoteWebsocket(websocket_base.WebSocketBase):
                 )
 
             try:
-                self.sock = websocket.create_connection(url, sslopt=sslopt)
+                self.sock = websocket.create_connection(url, sslopt=sslopt, connection="Connection: Upgrade")
             except:
                 if not self.config.paired:
                     raise RuntimeError('Unable to connect to the TV')
