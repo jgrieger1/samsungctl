@@ -15,6 +15,9 @@ from . import application
 from . import websocket_base
 from . import wake_on_lan
 from .utils import LogIt, LogItWithReturn
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 logger = logging.getLogger('samsungctl')
 
